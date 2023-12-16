@@ -16,7 +16,6 @@ clean:
 	@mkdir -p out
 	@rm -rf out/*.*
 
-# Build the uf2-util for generating uf2 compatible format
 uf2:
 	@uf2-util --bootrom out/bootrom.bin --progdata out/main.bin --output out/app.uf2
 
