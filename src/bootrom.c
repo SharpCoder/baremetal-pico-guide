@@ -9,7 +9,6 @@ typedef unsigned int uint32_t;
 void put32(uint32_t addr, uint32_t val);
 uint32_t read32(uint32_t addr);
 
-
 #define CTRL0_XIP (31 << 16) | (3 << 8)
 #define SPI_CTRL0_XIP (0x3 << 24) | (2 << 8) | (6 << 2)
 
@@ -23,15 +22,11 @@ void boot() {
     put32(XIP_SSI_BASE + 0x08, 0x0); // Disable SSI
     put32(XIP_SSI_BASE + 0x14, 0x4); // Set BAUDR
     put32(XIP_SSI_BASE + 0x00, CTRL0_XIP); // Set CTRL0
-    put32(XIP_SSI_BASE + 0xF4, SPI_CTRL0_XIP); // Set SSI CTRL0
+    put32(XIP_SSI_BASE + 0xF4, SPI_CTRL0_XIP); // Set SPI CTRL0
     put32(XIP_SSI_BASE + 0x08, 0x1); // Enable SSI
 
-    // GPIO stuff
-    put32(0x40014000 + 0x0cc, 5);
-    put32(0xd0000000 + 0x024, (1 << 25));
-
     // Copy program to sram
-    uint8_t* src = (uint8_t*)0x10000100;
+    uint8_t* src = (uint8_t*)0x10000100; // 256 Byte offset (that part is the bootloader)
     uint8_t* dst = (uint8_t*)0x20000000; // SRAM
 
     // Shadow copy into sram

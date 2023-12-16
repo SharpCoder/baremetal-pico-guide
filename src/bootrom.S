@@ -1,6 +1,5 @@
 entrypoint:
     ldr r0,=0x20040000 @ sram4 seems good for the sp
-    push {lr}
     mov sp,r0
     bl boot
     b .
