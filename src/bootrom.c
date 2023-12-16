@@ -1,7 +1,5 @@
 #define XIP_CTRL_BASE   0x14000000
 #define XIP_SSI_BASE    0x18000000
-#define IO_QSPI_BASE    0x40018000
-#define PADS_QSPI_BASE  0x40020000
 
 typedef char uint8_t;
 typedef unsigned int uint32_t;
@@ -30,7 +28,7 @@ void boot() {
     uint8_t* dst = (uint8_t*)0x20000000; // SRAM
 
     // Shadow copy into sram
-    for (int i = 0; i < 0xFF; i++) {
+    for (int i = 0; i < 0xFFF; i++) {
         *dst++ = *src++;
     }
 

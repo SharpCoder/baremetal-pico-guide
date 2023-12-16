@@ -9,7 +9,6 @@ LINK_ARGS = -nostdlib
 all: clean bootrom.bin main.bin uf2
 	@rm -f out/*.elf
 	@rm -f out/*.o
-	@rm -f out/*.bin
 
 
 clean:
@@ -29,7 +28,7 @@ main.bin: src/main.c src/main.S
 bootrom.bin: src/bootrom.c src/bootrom.S
 	$(ARM)-as $(AS_ARGS) src/bootrom.S -o out/start.o
 	$(ARM)-gcc $(GCC_ARGS) -c src/bootrom.c -o out/bootrom.o
-	$(ARM)-ld $(LINK_ARGS) -T src/bootrom.ld out/start.o out/bootrom.o -o out/bootrom.elf
+	$(ARM)-ld $(LINK_ARGS) out/start.o out/bootrom.o -o out/bootrom.elf
 	@$(ARM)-objcopy -O binary out/bootrom.elf out/bootrom.bin
 	@$(ARM)-objdump -D out/bootrom.elf > out/bootrom.asm
 
